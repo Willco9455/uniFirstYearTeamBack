@@ -17,13 +17,21 @@ h1 {
     /* text-align: right; */
 }
 
-form{
+form {
+    text-align: right;
+    float: right;
+} 
+
+#pinDiv{
     text-align: center;
 } input{ 
     height: auto;
     width: 120px;
     border: none;
     font-size: 1.5em;
+} button {
+    font-size: 1.5em;
+    width: 125px;
 }
 
 #spaceDiv{
