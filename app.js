@@ -1,6 +1,10 @@
+// external imports 
 const e = require("express");
 const express = require("express");
 const socket = require("socket.io");
+
+// objects Imports
+const Game = require('./objects')
 
 // App setup
 const PORT = (process.env.PORT || 5000);
@@ -18,32 +22,8 @@ app.set('view engine', 'ejs')
 // Static files
 app.use(express.static("public"));
 
-function user(uname) {
-  this.uname = uname;
-}
 
-// quiz object 
-function game(pin) {
-  this.title = 'Game Title';
-  this.pin = pin;
-  this.hostId = '123'
-  this.getPin = function () {
-    return(this.pin)
-  }
-  this.players = [new user('test1'),new user('test2')]
-
-}
-
-const games = [new game('123'), new game('456'), new game('789')]
-
-function getGameObj(pin) { 
-  var game = games.filter(x => x.pin == pin)
-  if (game.length == 0) { 
-    return false
-  } else{
-    return game 
-  }
-}
+const games = [new Game('1234'), new Game('1233')]
 
 
 io.on("connection", (socket) => {
@@ -54,9 +34,20 @@ io.on("connection", (socket) => {
     console.log(arg);
   })
 
-  socket.on('pinEntered', pin => {
-    var game = getGameObj(pin);
-    socket.emit('returningGame', game);
+  socket.on('pinEntered', arg => {
+    console.log(arg)
+    console.log(arg['name'])
+    var pin = arg['pin']
+    var gameIndex =  games.findIndex(x => x.pin == pin)
+    if (gameIndex == -1) {
+      send = false
+    } else {
+      var send = games[gameIndex]
+      send.addPlayer(arg['name'])
+    }
+    
+    // console.log(games)
+    socket.emit('returningGame', send);
   })
   
 });
@@ -76,6 +67,6 @@ app.get('/register', function (req, res) {
   res.render('register')
 });
 
-
-// const mainRouter = require('./routes/mainRouter') 
-// app.use('', mainRouter)
+app.get('/lobby', function (req, res) {
+  res.render('lobby')
+});

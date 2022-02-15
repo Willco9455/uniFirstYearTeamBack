@@ -17,10 +17,15 @@ h1 {
     /* text-align: right; */
 }
 
-form {
-    text-align: right;
+#spaceDiv{
     float: right;
+    display: block;
 } 
+
+form {
+    text-align: center;
+
+}
 
 #pinDiv{
     text-align: center;
