@@ -7,8 +7,15 @@ socket.on("connect", () => {
 });
 
 
+// function will run when 
 socket.on('returningGame', arg => {
   console.log(arg)
+  if (arg != false) {
+    socket.emit('userJoined', document.getElementById('name').value);
+    window.location.href = '/lobby';
+  }else {
+    window.alert('Not a valid pin :(')
+  }
 })
 
 function enterPress() {

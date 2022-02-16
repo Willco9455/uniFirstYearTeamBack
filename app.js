@@ -22,6 +22,10 @@ app.set('view engine', 'ejs')
 // Static files
 app.use(express.static("public"));
 
+function getGame(pin) {
+  var gameIndex =  games.findIndex(x => x.pin == pin)
+  return games[gameIndex]
+}
 
 const games = [new Game('1234'), new Game('1233')]
 
@@ -49,6 +53,14 @@ io.on("connection", (socket) => {
     // console.log(games)
     socket.emit('returningGame', send);
   })
+
+  socket.on('clientGetGame', arg => {
+    var game = getGame('1233')
+    console.log('sent game to lobby')
+    socket.emit('serverSentGame', game)
+  })
+
+  socket.on
   
 });
 
@@ -69,4 +81,5 @@ app.get('/register', function (req, res) {
 
 app.get('/lobby', function (req, res) {
   res.render('lobby')
+  
 });
