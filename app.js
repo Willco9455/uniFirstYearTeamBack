@@ -22,45 +22,34 @@ app.set('view engine', 'ejs')
 // Static files
 app.use(express.static("public"));
 
-function getGame(pin) {
-  var gameIndex =  games.findIndex(x => x.pin == pin)
-  return games[gameIndex]
-}
-
-const games = [new Game('1234'), new Game('1233')]
+const games = [new Game('1234')]
 
 
 io.on("connection", (socket) => {
-  console.log('connection')
+  // console.log('connection')
 
+  // response when a client is attempting to join the game with a username given 
+  socket.on('cUsrJoinAttempt', arg => {
+    games[0].addPlayer(arg['uname']);
 
-  socket.on("hello", function (arg) {
-    console.log(arg);
+    // send event to all clients saying a new user has joined and passing their username
+    io.emit('sUserJoined', arg['uname']);
+
+    // sends message back to the client that just joined telling them they have successfully joined 
+    // used late for checking the username does not already exist
+    socket.emit('sJoinSuccess');
+
+    console.log(`${arg['uname']} joined`);
   })
 
-  socket.on('pinEntered', arg => {
-    console.log(arg)
-    console.log(arg['name'])
-    var pin = arg['pin']
-    var gameIndex =  games.findIndex(x => x.pin == pin)
-    if (gameIndex == -1) {
-      send = false
-    } else {
-      var send = games[gameIndex]
-      send.addPlayer(arg['name'])
-    }
-    
-    // console.log(games)
-    socket.emit('returningGame', send);
+  socket.on('cGetPlayers', arg => {
+    var game = games[0]
+    // this takes the array of uses for the game and creates an array of just the usrenames for the players
+    var players = game.players.map(obj => {
+      return obj.uname
+    })
+    socket.emit('sReturnPlayers', players)
   })
-
-  socket.on('clientGetGame', arg => {
-    var game = getGame('1233')
-    console.log('sent game to lobby')
-    socket.emit('serverSentGame', game)
-  })
-
-  socket.on
   
 });
 
@@ -83,3 +72,19 @@ app.get('/lobby', function (req, res) {
   res.render('lobby')
   
 });
+
+app.get('/clearLobby', function(req, res) {
+  console.log('lobbyCleared')
+  clearLobby()
+  res.redirect('/lobby');
+})
+
+
+
+// functions for testing 
+
+function clearLobby () {
+  games[0].clearPlayers()
+  io.emit('sLobbyCleared')
+  console.log('lobby cleared')
+}

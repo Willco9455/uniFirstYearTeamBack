@@ -11,6 +11,10 @@ class Game {
     addPlayer(uname) {
       this.players.push(new User(uname))
     }
+
+    clearPlayers() {
+        this.players = []
+    }
 }
 
 class User {
