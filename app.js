@@ -14,13 +14,14 @@ const server = app.listen(PORT, function () {
   console.log(`http://localhost:${PORT}`);
 });
 
-// Socket setup
-const io = socket(server);
-
 // sets up ejs view engine for use
 app.set('view engine', 'ejs')
 // makes static available to server thorugh / path, / static now acts like the route path 
 app.use(express.static("static"));
+
+// Socket setup
+const io = socket(server);
+
 
 
 const games = [new Game('1234')]
@@ -42,7 +43,6 @@ io.on("connection", (socket) => {
 
   })
 
-  
   socket.on('cGetPlayers', arg => {
     var game = games[0]
     // this takes the array of uses for the game and creates an array of just the usrenames for the players
@@ -58,7 +58,6 @@ io.on("connection", (socket) => {
 // response when the home page is loaded
 app.get('/', function (req, res) {
   res.render('index')
-
 });
 
 app.get('/login', function (req, res) {

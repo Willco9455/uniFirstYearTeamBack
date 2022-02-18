@@ -1,6 +1,6 @@
 var uname = localStorage.getItem("uname")
-window.alert(uname)
 if (uname == null) { 
+  window.alert("you need to enter a username first!")
   window.location.href = "/";
 }
 

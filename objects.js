@@ -12,6 +12,12 @@ class Game {
       this.players.push(new User(uname))
     }
 
+    remPlayer(uname) {
+        this.players = this.players.filter( obj => {
+            return obj.uname != uname;
+        });
+    }
+
     clearPlayers() {
         this.players = []
     }
