@@ -1,13 +1,12 @@
 {
-  "name": "app-test2",
+  "name": "first-year-team-prject-z13",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "devStart": "nodemon app.js",
-    "myScript": "node -e 'require(\"./app.js\").clear()'"
+    "devStart": "nodemon app.js"
   },
   "keywords": [],
   "author": "",

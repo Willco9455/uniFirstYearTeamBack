@@ -1,4 +1,4 @@
-// external imports 
+// package imports 
 const e = require("express");
 const express = require("express");
 const socket = require("socket.io");
@@ -19,14 +19,14 @@ const io = socket(server);
 
 // sets up ejs view engine for use
 app.set('view engine', 'ejs')
-// Static files
-app.use(express.static("public"));
+// makes static available to server thorugh / path, / static now acts like the route path 
+app.use(express.static("static"));
+
 
 const games = [new Game('1234')]
 
-
+// defines the socket responses within this function when clients are conencted 
 io.on("connection", (socket) => {
-  // console.log('connection')
 
   // response when a client is attempting to join the game with a username given 
   socket.on('cUsrJoinAttempt', arg => {
@@ -38,10 +38,11 @@ io.on("connection", (socket) => {
     // sends message back to the client that just joined telling them they have successfully joined 
     // used late for checking the username does not already exist
     socket.emit('sJoinSuccess');
-
     console.log(`${arg['uname']} joined`);
+
   })
 
+  
   socket.on('cGetPlayers', arg => {
     var game = games[0]
     // this takes the array of uses for the game and creates an array of just the usrenames for the players
