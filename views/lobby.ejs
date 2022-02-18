@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lobby</title>
+    <script>
+      var uname = localStorage.getItem("uname")
+      if (uname == null) { 
+          window.location.href = '/';
+      };
+    </script>
     <link rel="stylesheet" href="./css/global.css" />
     <link rel="stylesheet" href="./css/lobby.css" />
   </head>

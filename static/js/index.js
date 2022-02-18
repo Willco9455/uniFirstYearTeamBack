@@ -1,15 +1,3 @@
-var uname = localStorage.getItem("uname")
-
-if (uname != null) { 
-  if (confirm("You are already in the game would you like to leave the game?")) {
-    localStorage.removeItem('uname');
-    window.location.href = '/';
-  } else {
-    window.location.href = '/lobby';
-  }
-};
-
-
 const socket = io();
 var unameElm = document.getElementById('name');
 
