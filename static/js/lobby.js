@@ -34,9 +34,8 @@ socket.on('sLobbyCleared', arg => {
 
 function addUser(uname) {
   var div = document.getElementById('usernames')
-  var newPara = document.createElement('p')
-  var text = document.createTextNode(uname)
-  newPara.appendChild(text)
+  var newPara = document.createElement('div');
+  newPara.innerHTML = uname
   div.appendChild(newPara)
 }
 
