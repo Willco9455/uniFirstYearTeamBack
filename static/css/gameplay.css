@@ -1,0 +1,87 @@
+body {
+  /* background-image: url('background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover; */
+}
+
+/* positioning and formatting for answer option rectangles */
+div.fixed2 {
+  position: fixed;
+  right: 1000px;
+  bottom: 120px;
+  width: 900px;
+  height: 100px;
+  border: 3px solid #73AD21;
+  background-color: #73AD21;
+}
+
+/* positioning and formatting for answer option rectangles */
+div.fixed {
+  position: fixed;
+  right: 1000px;
+  bottom: 10px;
+  width: 900px;
+  height: 100px;
+  border: 3px solid #73AD21;
+  background-color: #73AD21;
+}
+
+/* positioning and formatting for answer option rectangles */
+div.fixed3 {
+  position: fixed;
+  right: 20px;
+  bottom: 120px;
+  width: 900px;
+  height: 100px;
+  border: 3px solid #73AD21;
+  background-color: #73AD21;
+}
+
+/* positioning and formatting for answer option rectangles */
+div.fixed4 {
+  position: fixed;
+  right: 20px;
+  bottom: 10px;
+  width: 900px;
+  height: 100px;
+  border: 3px solid #73AD21;
+  background-color: #73AD21;
+}
+
+/* positioning for timer */
+div.fixed5 {
+  position: fixed;
+  right: 45px;
+  top: 5px;
+}
+
+
+/* positioning for answer buttons */
+div.fixed6 {
+  position: fixed;
+  right: 450px;
+  top: 300px;
+}
+
+/* positioning for answer buttons */
+div.fixed7 {
+  position: fixed;
+  right: 450px;
+  top: 87px;
+}
+
+/* positioning and formatting for question */
+div.fixed8 {
+  position: fixed;
+  left: 20px;
+  top: 10px;
+  width: 900px;
+  height: 100px;
+  border: 3px solid #73AD21;
+  background-color: #73AD21;
+}
+
+/* sets font size for timer, question and answer options */
+p{
+font-size: 40px;
+}

@@ -68,6 +68,10 @@ app.get('/register', function (req, res) {
 
 app.get('/lobby', function (req, res) {
   res.render('lobby')
+});
+
+app.get('/game', function (req, res) {
+  res.render('gameplay')
   
 });
 
