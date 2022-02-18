@@ -22,8 +22,6 @@ app.use(express.static("static"));
 // Socket setup
 const io = socket(server);
 
-
-
 const games = [new Game('1234')]
 
 // defines the socket responses within this function when clients are conencted 
