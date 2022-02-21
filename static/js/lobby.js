@@ -13,12 +13,6 @@ socket.on("connect", () => {
     console.log(socket.id + 'connected on lobby'); 
 });
 
-socket.on('sReturnPlayers', sPlayers => {
-  players = sPlayers
-  console.log(sPlayers)
-  updateLobby()
-})
-
 // on response to a user joing the game the sever has sent the new users name as the argument
 socket.on('sUserJoined', arg => {
   console.log(`new user joined ${arg}`)
@@ -47,7 +41,11 @@ function updateLobby() {
 }
 
 function getUsers() {
-  socket.emit('cGetPlayers')
+  socket.emit('cGetPlayers', false, (response) => {
+    players = response
+    updateLobby()
+  })
 }
 
 getUsers()
+// console.log(`date ${Date.now()}`)

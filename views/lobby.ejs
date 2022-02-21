@@ -10,18 +10,19 @@
           window.location.href = '/';
       };
     </script>
-    <link rel="stylesheet" href="./css/global.css" />
-    <link rel="stylesheet" href="./css/lobby.css" />
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/lobby.css" />
   </head>
   <body>
     
     <h1>Lobby</h1>
+    <h2 style="color: white; text-align: center;">Host - <%= hostId || "No Host" %> </h2>
     
     <div style="padding: 0em 2em; color: white;" class="usernames" id="usernames">
     </div>
     
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
-    <script src="./js/lobby.js"></script>
+    <script src="/js/lobby.js"></script>
   </body>
 </html>

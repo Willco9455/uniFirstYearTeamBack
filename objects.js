@@ -4,7 +4,7 @@ class Game {
     constructor(pin) {
         this.title = 'Game Title';
         this.pin = pin;
-        this.hostId = ''
+        this.hostId = undefined
         this.players = []
     }
 
@@ -16,6 +16,10 @@ class Game {
         this.players = this.players.filter( obj => {
             return obj.uname != uname;
         });
+    }
+
+    setHost(uname) {
+        this.hostId = uname
     }
 
     clearPlayers() {

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" href="./css/gameplay.css">
+
+<title>KILBURN KWIZZIZZ</title>
+
+</head>
+
+<body>
+
+<!-- the below two divs of class fixed60 and fixed6 display the 4 answer buttons that make up the circle
+these are linked to their respective functions-->
+  <div class="fixed60" >
+  <button type = "submit" onclick="answer1();">
+     <img src="./assetsoption1_t.png" />
+  </button>
+  <button type = "submit" onclick="answer2();">
+     <img  src="./assetsoption2.jpg" />
+  </button>
+
+</div>
+
+<div class="fixed6">
+  <button type = "submit" onclick="answer3();">
+     <img src="./assetsoption3.jpg" />
+  </button>
+  <button type = "submit" onclick="answer4();">
+     <img  src="./assetsoption4.jpg" />
+  </button>
+</div>
+
+<!-- displays the timer -->
+<div class="fixed5"> <p id="timer"></p> </div>
+
+<!-- displays the answer options -->
+    <div class="fixed2" style = "bottom: 10px;"> <p id="option1"></p> </div>
+    <div class="fixed2"> <p id="option2"></p> </div>
+    <div class="fixed2" style = "right: 20px;"> <p id="option3"></p> </div>
+    <div class="fixed2" style = "right: 20px;bottom: 10px;"> <p id="option4"></p> </div>
+
+<!-- displays the question -->
+    <div class="fixed8">
+      <p id="question"></p>
+    </div>
+
+<!-- imports javascript script for functionality -->
+   <script src="./js/gameplay.js"></script>
+
+
+</body>
+</html>

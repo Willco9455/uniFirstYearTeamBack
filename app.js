@@ -17,18 +17,28 @@ const server = app.listen(PORT, function () {
 // sets up ejs view engine for use
 app.set('view engine', 'ejs')
 // makes static available to server thorugh / path, / static now acts like the route path 
-app.use(express.static("static"));
+app.use(express.static(__dirname + "/static"));
 
 // Socket setup
 const io = socket(server);
 
 const games = [new Game('1234')]
+var game = games[0]
+game.setHost('testUser3')
+game.addPlayer('testUser1')
+game.addPlayer('testUser2')
 
 // defines the socket responses within this function when clients are conencted 
 io.on("connection", (socket) => {
 
   // response when a client is attempting to join the game with a username given 
   socket.on('cUsrJoinAttempt', arg => {
+    if (games[0].hostId == undefined) {
+      games[0].setHost(arg['uname'])
+      socket.emit('sJoinSuccess');
+      return
+    }
+    
     games[0].addPlayer(arg['uname']);
 
     // send event to all clients saying a new user has joined and passing their username
@@ -41,13 +51,13 @@ io.on("connection", (socket) => {
 
   })
 
-  socket.on('cGetPlayers', arg => {
+  socket.on('cGetPlayers', function (data, callback) {
     var game = games[0]
     // this takes the array of uses for the game and creates an array of just the usrenames for the players
     var players = game.players.map(obj => {
       return obj.uname
     })
-    socket.emit('sReturnPlayers', players)
+    callback(players)
   })
   
 });
@@ -55,7 +65,14 @@ io.on("connection", (socket) => {
 
 // response when the home page is loaded
 app.get('/', function (req, res) {
-  res.render('index')
+  if (games[0].hostId == undefined) {
+    console.log('no host')
+    res.render('index', {host: false})
+  } else {
+    console.log('has host')
+    res.render('index', {host: true})
+  }
+  
 });
 
 app.get('/login', function (req, res) {
@@ -66,13 +83,17 @@ app.get('/register', function (req, res) {
   res.render('register')
 });
 
-app.get('/lobby', function (req, res) {
-  res.render('lobby')
+app.get('/lobby/:uname', function (req, res) {
+  console.log(games[0].hostId)
+  console.log(req.params.uname)
+  res.render('lobby', {
+    uname: req.params.uname,
+    hostId: games[0].hostId
+  })
 });
 
 app.get('/game', function (req, res) {
   res.render('gameplay')
-  
 });
 
 app.get('/clearLobby', function(req, res) {
