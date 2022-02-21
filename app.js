@@ -110,6 +110,7 @@ app.get('/clearLobby', function(req, res) {
 // functions for testing 
 
 function clearLobby () {
+  games[0].hostId = undefined
   games[0].clearPlayers()
   io.emit('sLobbyCleared')
   console.log('lobby cleared')
