@@ -47,5 +47,11 @@ function getUsers() {
   })
 }
 
+function startGame() {
+  socket.emit('cHostStartGame')
+  console.log('host started game')
+}
+
+
 getUsers()
 // console.log(`date ${Date.now()}`)

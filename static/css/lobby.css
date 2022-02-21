@@ -8,3 +8,10 @@
     font-family: Montserrat, "Noto Sans Arabic", "Helvetica Neue", Helvetica, Arial, sans-serif;
     padding-top: 1em;
 }
+
+button { 
+    text-align: center;
+    display: block;
+    float: right;
+    margin-left: -120px;
+}

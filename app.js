@@ -24,7 +24,7 @@ const io = socket(server);
 
 const games = [new Game('1234')]
 var game = games[0]
-game.setHost('testUser3')
+game.setHost('testHost')
 game.addPlayer('testUser1')
 game.addPlayer('testUser2')
 
@@ -58,6 +58,10 @@ io.on("connection", (socket) => {
       return obj.uname
     })
     callback(players)
+  })
+
+  socket.on('cHostStartGame', function (data) {
+    console.log('game start request recived by server')
   })
   
 });
@@ -101,7 +105,6 @@ app.get('/clearLobby', function(req, res) {
   clearLobby()
   res.redirect('/lobby');
 })
-
 
 
 // functions for testing 

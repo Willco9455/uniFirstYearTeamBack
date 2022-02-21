@@ -16,6 +16,9 @@
   <body>
     
     <h1>Lobby</h1>
+    <% if (uname == hostId) { %>
+      <button  value="Enter" onclick="startGame();">Start</button>
+    <% } %>
     <h2 style="color: white; text-align: center;">Host - <%= hostId || "No Host" %> </h2>
     
     <div style="padding: 0em 2em; color: white;" class="usernames" id="usernames">
