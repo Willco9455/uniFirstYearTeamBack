@@ -103,7 +103,7 @@ app.get('/game', function (req, res) {
 app.get('/clearLobby', function(req, res) {
   console.log('lobbyCleared')
   clearLobby()
-  res.redirect('/lobby');
+  res.redirect('/');
 })
 
 

@@ -1,3 +1,9 @@
+//Create canvas
+var canvas = document.getElementById("myCanvas");
+var ctx=canvas.getContext("2d");
+ctx.font="30px Comic Sans MS";
+ctx.fillStyle = "red";
+ctx.textAlign = "center";
 //i is used in place of the question number
 let i = 0;
 //lists of options
@@ -15,6 +21,10 @@ const correct = [4, 2, 3, 2, 3];
 var option_chosen;
 
   function optiongenerator() {
+    var circleStart = 1.5 * Math.PI;
+    var circleEnd = circleStart;
+    var timeLimit = 15000;
+    var previousDistance = timeLimit;
 
     // displays the question and answer options
     document.getElementById("option1").innerHTML = option1[i];
@@ -24,16 +34,32 @@ var option_chosen;
     document.getElementById("question").innerHTML = questions[i];
 
   // timer code below
-  var countDownDate = new Date().getTime() + 15000;
-  var x = setInterval(function() {
-    var now = new Date().getTime();
-    var distance = countDownDate - now;
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    document.getElementById("timer").innerHTML = seconds + "s ";
 
-    if (distance < 0) {
-      clearInterval(x);
-      document.getElementById("timer").innerHTML = "Times up";
+    // Update the count down every 1 second
+    var countDownDate = new Date().getTime() + timeLimit;
+      var x = setInterval(function() {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);  // Clears the canvas
+      ctx.fillText(seconds + "s ", canvas.width/2, canvas.height/2);  // Displays remaing time in seconds on the canvas
+        //Displays circle around the timer
+        ctx.beginPath();
+        ctx.lineWidth = 13;
+        ctx.strokeStyle = "Red";
+        ctx.arc(canvas.width/2 -5, canvas.height/2 - 10, 75, 0, 2 * Math.PI);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.strokeStyle = "#02de0d";
+        ctx.arc(canvas.width/2 -5, canvas.height/2 - 10, 75, circleStart, circleEnd);
+        circleEnd = circleEnd - (((previousDistance - distance)/timeLimit)*2*Math.PI);
+        previousDistance = distance;
+        ctx.stroke();
+        if (distance < 0) {
+          clearInterval(x);
+          ctx.clearRect(0, 0, canvas.width, canvas.height);  // Clears the canvas
+          ctx.fillText("Times Up", canvas.width/2, canvas.height/2);
   //timer code above
 
   //checks the correct answer against the chosen answer
@@ -42,14 +68,13 @@ var option_chosen;
 
       //increments i, moving on to the next question and set of answers
       i++;
-
       //calls the function again, displaying the next question and set of answers
       //and also restarting the timer
       optiongenerator();
 
         }
 
-    }, 1000);
+    }, 100);
   }
 //starts the timer and displays the first question and set of answers
  optiongenerator();
