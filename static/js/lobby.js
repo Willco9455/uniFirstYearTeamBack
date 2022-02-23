@@ -26,6 +26,10 @@ socket.on('sLobbyCleared', arg => {
   updateLobby()
 })
 
+socket.on('sGameStarted', arg => {
+  window.location.href = `/game/${localStorage.getItem('uname')}`;
+})
+
 function addUser(uname) {
   var div = document.getElementById('usernames')
   var newPara = document.createElement('div');

@@ -6,6 +6,25 @@ class Game {
         this.pin = pin;
         this.hostId = undefined
         this.players = []
+        this.questions = 
+        [   
+            {
+                question: 'What is the best colour?',
+                ans0: 'Blue',
+                ans1: 'Red',
+                ans2: 'orange',
+                ans3: 'Pink',
+                cor: 2
+            }, 
+            {
+                question: 'What is the worst colour?',
+                ans0: 'Violet',
+                ans1: 'Purple',
+                ans2: 'Yellow',
+                ans3: 'Grey',
+                cor: 1
+            }, 
+        ]
     }
 
     addPlayer(uname) {
@@ -29,7 +48,7 @@ class Game {
 
 class User {
     constructor(uname) {
-        this.uname = uname
+        this.uname = uname;
     }
 }
 

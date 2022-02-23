@@ -61,7 +61,12 @@ io.on("connection", (socket) => {
   })
 
   socket.on('cHostStartGame', function (data) {
+    io.emit('sGameStarted')
     console.log('game start request recived by server')
+  })
+
+  socket.on('cGetQuestions', function (data, callback) { 
+    callback(games[0].questions)
   })
   
 });
@@ -98,6 +103,14 @@ app.get('/lobby/:uname', function (req, res) {
 
 app.get('/game', function (req, res) {
   res.render('gameplay')
+});
+
+app.get('/game/:uname', function (req, res) {
+  if (games[0].hostId == req.params.uname) {
+    res.render('game-host')
+  } else{ 
+    res.render('game-player')
+  }
 });
 
 app.get('/clearLobby', function(req, res) {

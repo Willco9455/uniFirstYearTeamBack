@@ -1,0 +1,16 @@
+h1 { 
+    text-align: center;
+}
+
+
+
+.nextButton {
+    float: right;
+    display: none;
+}
+
+#timer {
+    font-size: 3em;
+    font-weight: bolder;
+}
+
