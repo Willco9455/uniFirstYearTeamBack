@@ -36,10 +36,17 @@ these are linked to their respective functions-->
 
 
 <!-- displays the answer options -->
-    <div class="fixed2" style = "bottom: 10px;"> <p id="option1"></p> </div>
-    <div class="fixed2"> <p id="option2"></p> </div>
-    <div class="fixed2" style = "right: 20px;"> <p id="option3"></p> </div>
-    <div class="fixed2" style = "right: 20px;bottom: 10px;"> <p id="option4"></p> </div>
+<div class="fixed2" style = "bottom: 10px; background-color: orange;" > <p id="option1"></p> </div>
+<div class="fixed2" style = "background-color: red;"> <p id="option2"></p> </div>
+<div class="fixed2" style = "right: 20px; background-color: blue;"> <p id="option3"></p> </div>
+<div class="fixed2" style = "right: 20px;bottom: 10px; background-color: green;"> <p id="option4"></p> </div>
+
+<!-- displays the score -->
+<div class="fixed2" style = "right: 20px;top: 10px;"> <p id="score"> </p> </div>
+
+<div class="fixed2" id="nextQ" style = "right: 20px;top: 10px;">
+<button onclick="nextQButton()">Next question</button>
+</div>
 
 <!-- displays the question -->
     <div class="fixed8">
@@ -47,7 +54,8 @@ these are linked to their respective functions-->
     </div>
 
 <!-- imports javascript script for functionality -->
-    <script src="/js/gameplay.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
+<script src="/js/gameplay.js"></script>
 
 
 </body>

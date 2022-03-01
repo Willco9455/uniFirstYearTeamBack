@@ -1,5 +1,4 @@
 // package imports 
-const e = require("express");
 const express = require("express");
 const socket = require("socket.io");
 
@@ -66,9 +65,19 @@ io.on("connection", (socket) => {
   })
 
   socket.on('cGetQuestions', function (data, callback) { 
-    callback(games[0].questions)
+    callback(games[0].getQuestions())
   })
-  
+
+  // returns the current question number to the socket that requested it
+  socket.on('cGetQNum', function (data, callback) { 
+    callback(games[0].getQNUm())
+  })
+
+  socket.on('cNextQ', function (data) { 
+    games[0].nextQ()
+    io.emit('sNextQ')
+  })
+
 });
 
 
@@ -81,7 +90,6 @@ app.get('/', function (req, res) {
     console.log('has host')
     res.render('index', {host: true})
   }
-  
 });
 
 app.get('/login', function (req, res) {
@@ -107,9 +115,9 @@ app.get('/game', function (req, res) {
 
 app.get('/game/:uname', function (req, res) {
   if (games[0].hostId == req.params.uname) {
-    res.render('game-host')
+    res.render('gameplay', {host: true})
   } else{ 
-    res.render('game-player')
+    res.render('game-player', {host: false})
   }
 });
 

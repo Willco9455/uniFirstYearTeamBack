@@ -1,30 +1,18 @@
 // quiz object
 class Game {
-     
+
     constructor(pin) {
         this.title = 'Game Title';
         this.pin = pin;
         this.hostId = undefined
         this.players = []
-        this.questions = 
-        [   
-            {
-                question: 'What is the best colour?',
-                ans0: 'Blue',
-                ans1: 'Red',
-                ans2: 'orange',
-                ans3: 'Pink',
-                cor: 2
-            }, 
-            {
-                question: 'What is the worst colour?',
-                ans0: 'Violet',
-                ans1: 'Purple',
-                ans2: 'Yellow',
-                ans3: 'Grey',
-                cor: 1
-            }, 
-        ]
+        this.questions = ['9 + 3', '3 + 4', '7 + 7']
+        this.option1 = ['12', '5', '2'] 
+        this.option2 = ['13', '7', '8'] 
+        this.option3 = ['2', '3', '14'] 
+        this.option4 = ['4', '2', '12'] 
+        this.correct = [1, 2, 3] 
+        this.qnum = 0
     }
 
     addPlayer(uname) {
@@ -44,11 +32,25 @@ class Game {
     clearPlayers() {
         this.players = []
     }
+
+    getQuestions() {
+        var send = [this.questions, this.option1, this.option2, this.option3, this.option4, this.correct]
+        return send
+    }
+
+    getQNUm() {
+        return this.qnum
+    }
+
+    nextQ() {
+        this.qnum += 1
+    }
 }
 
 class User {
     constructor(uname) {
         this.uname = uname;
+        this.score = 0
     }
 }
 
