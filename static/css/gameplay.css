@@ -57,3 +57,10 @@ body {
 #nextQ {
   font-size: large;
 }
+
+.answer {
+  color: white;
+  text-align: center;
+  padding-top: 360px; 
+  font-size: 5em;
+}

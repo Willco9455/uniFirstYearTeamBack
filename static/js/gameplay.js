@@ -7,8 +7,8 @@ var option3 = [];
 var option4 = [];
 var correct = [];
 var quiz = undefined
-
 var uname = localStorage.getItem('uname')
+var response = undefined
 
 // gets the questions from the sever and aves to questions variable
 socket.emit('cGetQuestions', false, function(res) {
@@ -58,14 +58,12 @@ async function optiongenerator() {
   // error will throw if user is host
   try {
     var score = player.score
+    document.getElementById("score").innerHTML = "Score: " + score;
   } catch(err) {
     var score = 'host'
   }
 
   // adds score to page
-  document.getElementById("score").innerHTML = "Score: " + score;
-
-
   var circleStart = 1.5 * Math.PI;
   var circleEnd = circleStart;
   var timeLimit = 15000;
@@ -82,7 +80,7 @@ async function optiongenerator() {
 
   // Update the count down every 1 second
   var countDownDate = new Date().getTime() + timeLimit;
-  var x = setInterval(function() {
+  var x = setInterval(async function() {
     var now = new Date().getTime();
     var distance = countDownDate - now;
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
@@ -113,6 +111,14 @@ async function optiongenerator() {
       ctx.fillText("Times Up", canvas.width/2, canvas.height/2);
       //timer code above
 
+      // if the user is the host then wait 3 seconds and redirect to leaderboard
+      if ( localStorage.getItem('uname') == quiz.hostId ) {
+        // waits for 3 seconds 
+        await sleep(3000);
+        document.location.href = "/leaderboard";
+        return
+      }
+
       //checks the correct answer against the chosen answer
       console.log('correct i' + correct[i])
       console.log('chosen' + option_chosen)
@@ -120,12 +126,13 @@ async function optiongenerator() {
         socket.emit('cAddPlayerScore', uname)
         score++;
         document.getElementById("score").innerHTML = "Score:" + score;
-        alert("correct"); 
+        questionEnd(true)
       }else { 
-        alert("incorrect");
+        questionEnd(false)
       }
 
-      // document.location.href = "/leaderboard";
+      await sleep(3000)
+      document.location.href = "/leaderboard";
 
     }
     
@@ -151,5 +158,20 @@ function getQuiz() {
     resolve(data)
   }))
 }
+
+function questionEnd(correct) {
+  if (correct) {
+    document.body.innerHTML = "<h1 class='answer'>Correct</h1>"
+    document.body.style.backgroundColor = 'blue'
+  } else {
+    document.body.innerHTML = "<h1 class='answer'>incorrect</h1>"
+    document.body.style.backgroundColor = 'blue'
+  }
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 
 
