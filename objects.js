@@ -6,12 +6,12 @@ class Game {
         this.pin = pin;
         this.hostId = undefined
         this.players = []
-        this.questions = ['9 + 3', '3 + 4', '7 + 7']
-        this.option1 = ['12', '5', '2'] 
-        this.option2 = ['13', '7', '8'] 
-        this.option3 = ['2', '3', '14'] 
-        this.option4 = ['4', '2', '12'] 
-        this.correct = [1, 2, 3] 
+        this.questions = ['9 + 3', '3 + 4', '7 + 7', '4 x 4']
+        this.option1 = ['12', '5', '2', '8'] 
+        this.option2 = ['13', '7', '8', '12'] 
+        this.option3 = ['2', '3', '14', '16'] 
+        this.option4 = ['4', '2', '12', '4'] 
+        this.correct = [1, 2, 3, 3] 
         this.qnum = 0
     }
 
