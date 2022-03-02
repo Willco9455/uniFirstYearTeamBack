@@ -27,7 +27,7 @@ async function pageLoad() {
     }
 
     // checks if the user currently viewing page is the host and displays the next question option if they are
-    if (hostId == localStorage.getItem('uname')) {
+    if ((hostId == localStorage.getItem('uname')) && (quiz.qnum < quiz.questions.length - 1)) {
         console.log('isHost')
         document.getElementById('button').style.display = 'block'
     }
