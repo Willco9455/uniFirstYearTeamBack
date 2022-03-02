@@ -23,9 +23,11 @@ function randomButton() {
 }
 
 function getPlayers() {
-  // will get the list of players in the game and save them to the platers variabele 
-  socket.emit('cGetPlayers', false, (answer) => {
-    players = answer
+  // asks server for list of player object [{uname, score}] and then filters just usernames
+  socket.emit('cGetPlayers', false, (data) => {
+    players = data.map(obj => {
+      return obj.uname
+    })
   })
 
 }

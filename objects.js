@@ -45,12 +45,30 @@ class Game {
     nextQ() {
         this.qnum += 1
     }
+
+    addPlayerScore(uname) {
+        var index = this.players.findIndex(x => x.uname == uname)
+        console.log(this.players[index])
+        try {
+            this.players[index].addScore()
+        } catch (err){
+            console.log(err)
+        }
+    }
+
+    getPlayers() {
+        return this.players
+    }
 }
 
 class User {
     constructor(uname) {
         this.uname = uname;
         this.score = 0
+    }
+
+    addScore() {
+        this.score = this.score + 1
     }
 }
 

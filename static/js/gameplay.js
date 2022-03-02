@@ -1,4 +1,3 @@
-
 const socket = io();
 var sent = [];
 var questions = []; 
@@ -7,6 +6,9 @@ var option2 = [];
 var option3 = [];
 var option4 = [];
 var correct = [];
+var quiz = undefined
+
+var uname = localStorage.getItem('uname')
 
 // gets the questions from the sever and aves to questions variable
 socket.emit('cGetQuestions', false, function(res) {
@@ -17,11 +19,9 @@ socket.emit('cGetQuestions', false, function(res) {
   option3 = sent[3]
   option4 = sent[4]
   correct = sent[5]
+  // load question
   optiongenerator();
 })
-
-var score = 0;
-document.getElementById("score").innerHTML = "Score: " + score;
 
 
 //Create canvas
@@ -42,10 +42,30 @@ ctx.textAlign = "center";
 var option_chosen;
 
 async function optiongenerator() {
+  // gets full quiz object from the database
+  quiz = await getQuiz()
+
   //i is used in place of the question number
-  // current question number is fetched from the server
-  i = await getQNum() 
-  console.log('this is i '+ i)
+  // i becomes current question of quiz
+  i = quiz.qnum
+
+  // player stored on localstorage is retrived from the players array in quiz object
+  player = await quiz.players.filter(obj => {
+    return obj.uname === uname
+  })[0]
+  console.log(player)
+
+  // error will throw if user is host
+  try {
+    var score = player.score
+  } catch(err) {
+    var score = 'host'
+  }
+
+  // adds score to page
+  document.getElementById("score").innerHTML = "Score: " + score;
+
+
   var circleStart = 1.5 * Math.PI;
   var circleEnd = circleStart;
   var timeLimit = 15000;
@@ -95,12 +115,15 @@ async function optiongenerator() {
 
       //checks the correct answer against the chosen answer
       if (correct[i] == window.option_chosen) {
+        socket.emit('cAddPlayerScore', uname)
+        document.getElementById("score").innerHTML = "Score:" + score;
         alert("correct"); 
         score++;
-        document.getElementById("score").innerHTML = "Score:" + score;
       }else { 
         alert("incorrect");
       }
+
+      document.location.href = "/leaderboard";
 
     }
     
@@ -119,20 +142,12 @@ function answer4() {window.option_chosen = 4;}
 
 // wills server functions 
 
+
 // will get the current question number returns as a resolved promise so it can be used asynchronously
-function getQNum() {
-  return new Promise(resolve => socket.emit('cGetQNum', false, data => {
+function getQuiz() {
+  return new Promise(resolve => socket.emit('cGetQuiz', false, data => {
     resolve(data)
   }))
 }
 
-// tells the server the next question button has been pressed
-function nextQButton() {
-  socket.emit('cNextQ')
-}
 
-// listener for server sending nextQuestion update,, will reload the questions
-socket.on('sNextQ', function() { 
-  optiongenerator()
-  console.log('nextQuestion')
-})

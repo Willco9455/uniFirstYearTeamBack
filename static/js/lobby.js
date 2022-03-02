@@ -27,7 +27,7 @@ socket.on('sLobbyCleared', arg => {
 })
 
 socket.on('sGameStarted', arg => {
-  window.location.href = `/game/${localStorage.getItem('uname')}`;
+  window.location.href = '/game';
 })
 
 function addUser(uname) {
@@ -45,8 +45,10 @@ function updateLobby() {
 }
 
 function getUsers() {
-  socket.emit('cGetPlayers', false, (response) => {
-    players = response
+  socket.emit('cGetPlayers', false, (data) => {
+    players = data.map(obj => {
+      return obj.uname
+    })
     updateLobby()
   })
 }
@@ -55,7 +57,6 @@ function startGame() {
   socket.emit('cHostStartGame')
   console.log('host started game')
 }
-
 
 getUsers()
 // console.log(`date ${Date.now()}`)
