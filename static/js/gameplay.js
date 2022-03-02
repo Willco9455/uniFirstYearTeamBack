@@ -114,16 +114,18 @@ async function optiongenerator() {
       //timer code above
 
       //checks the correct answer against the chosen answer
-      if (correct[i] == window.option_chosen) {
+      console.log('correct i' + correct[i])
+      console.log('chosen' + option_chosen)
+      if (correct[i] == option_chosen) {
         socket.emit('cAddPlayerScore', uname)
+        score++;
         document.getElementById("score").innerHTML = "Score:" + score;
         alert("correct"); 
-        score++;
       }else { 
         alert("incorrect");
       }
 
-      document.location.href = "/leaderboard";
+      // document.location.href = "/leaderboard";
 
     }
     
@@ -135,10 +137,10 @@ async function optiongenerator() {
 // These functions are called when an answer button is pressed. It
 // stores the value of the option (1, 2, 3, 4), as a global variable,
 // which is then checked against the correct answers value (1, 2, 3, 4)
-function answer1() {window.option_chosen = 1;}
-function answer2() {window.option_chosen = 2;}
-function answer3() {window.option_chosen = 3;}
-function answer4() {window.option_chosen = 4;}
+function answer1() {option_chosen = 1;}
+function answer2() {option_chosen = 2;}
+function answer3() {option_chosen = 3;}
+function answer4() {option_chosen = 4;}
 
 // wills server functions 
 
