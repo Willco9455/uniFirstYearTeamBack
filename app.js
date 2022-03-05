@@ -40,6 +40,8 @@ game.addPlayerScore('testUser3')
 game.addPlayerScore('testUser4')
 game.addPlayerScore('testUser2')
 
+console.log(PORT)
+
 // defines the socket responses within this function when clients are conencted 
 io.on("connection", (socket) => {
 
