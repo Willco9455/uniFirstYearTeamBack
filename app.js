@@ -20,25 +20,8 @@ const games = [new Game('1234')]
 
 // for testing purposes
 var game = games[0]
-// game.setHost('testHost')
-// game.addPlayer('testUser1')
-// game.addPlayer('testUser2')
-// game.addPlayer('testUser3')
-// game.addPlayer('testUser4')
-// game.addPlayer('testUser5')
-// game.addPlayer('jonn')
-// game.addPlayerScore('jonn')
-// game.addPlayerScore('jonn')
-// game.addPlayerScore('jonn')
-// game.addPlayerScore('testUser1')
-// game.addPlayerScore('testUser4')
-// game.addPlayerScore('testUser4')
-// game.addPlayerScore('testUser4')
-// game.addPlayerScore('testUser4')
-// game.addPlayerScore('testUser1')
-// game.addPlayerScore('testUser3')
-// game.addPlayerScore('testUser4')
-// game.addPlayerScore('testUser2')
+game.addPlayer('jonn')
+game.addPlayerScore('jonn')
 
 console.log(PORT)
 
