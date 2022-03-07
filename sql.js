@@ -1,19 +1,13 @@
-var mysql = require('mysql')
-
-var con = mysql.createConnection({
-    host: "sql208.epizy.com",
-    user: "epiz_31220123",
-    password: "BAncdfZkUmcU",
-    database: "epiz_31220123_test"
-  });
-  
-con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
+const sqlite3 = require('sqlite3').verbose();
+let db = new sqlite3.Database('./database.db' , (err) => {
+    if (err) {
+        return console.error(err.message)
+    }
+    console.log('connected to database')
 });
 
-
-class sqlServer{
+db.close()
+class sqlDatabase{
     constructor(host) {
 
     }
