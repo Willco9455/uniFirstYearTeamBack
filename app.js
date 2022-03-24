@@ -16,7 +16,7 @@ const Game = require('./objects')
 
 
 // aray that holds the game objects currently bieng played
-const games = [new Game('1234')]
+const games = [new Game('1234'), new Game('4321')]
 
 // for testing purposes
 var game = games[0]
@@ -28,54 +28,94 @@ console.log(PORT)
 // defines the socket responses within this function when clients are conencted 
 io.on("connection", (socket) => {
 
+  socket.on('cJoinRoom', gamePin => {
+    socket.join(gamePin)
+  })
+
   // response when a client is attempting to join the game with a username given 
-  socket.on('cUsrJoinAttempt', arg => {
-    if (games[0].hostId == undefined) {
-      games[0].setHost(arg['uname'])
-      socket.emit('sJoinSuccess');
+  socket.on('cUsrJoinAttempt', function (data, callback) {
+
+    //  gets all pins currently in use
+    var pins = games.map( x => x.pin)
+
+    if (!pins.includes(data['pin'])){
+      console.log('pin invalid')
+      callback(false)
       return
     }
-    
-    games[0].addPlayer(arg['uname']);
 
-    // send event to all clients saying a new user has joined and passing their username
-    io.emit('sUserJoined', arg['uname']);
+    // gets the game joinings index in the games array and adds the user to that specfifc game 
+    var gameInd = games.findIndex(obj => obj.pin == data['pin'])
+    game = games[gameInd]
 
-    // sends message back to the client that just joined telling them they have successfully joined 
-    // used late for checking the username does not already exist
-    socket.emit('sJoinSuccess');
-    console.log(`${arg['uname']} joined`);
+    game.addPlayer(data['uname'])
+    console.log(games[gameInd])
 
-  })
+    // tells all users in the lobby with the same game pin that a new user has joined 
+    io.to(data['pin']).emit('sUserJoined', data['uname']);
+    callback(true)
+    return
 
-  // used only on index page 
-  socket.on('cGetPlayers', function (data, callback) {
-    var game = games[0]
-    // this takes the array of uses for the game and creates an array of just the usrenames for the players
-    var players = game.getPlayers()
-    callback(players)
-  })
+  });
 
-  socket.on('cHostStartGame', function (data) {
-    io.emit('sGameStarted')
+
+  socket.on('cHostStartGame', function (gamePin) {
+    io.to(gamePin).emit('sGameStarted')
     console.log('game start request recived by server')
   })
 
   // listener for the host clinet moving to next question 
-  socket.on('cNextQ', function (data) { 
-    games[0].nextQ()
-    io.emit('sNextQ')
+  socket.on('cNextQ', function (gamePin) { 
+    // gets the game joinings index in the games array and adds the user to that specfifc game 
+    var gameInd = games.findIndex(obj => obj.pin == gamePin)
+    game = games[gameInd]
+
+    game.nextQ()
+    io.to(gamePin).emit('sNextQ')
     console.log('moved to next question ')
   })
 
   // socket listener that recives the username of the person incrementing score and adds 1 to score
   socket.on('cAddPlayerScore', function(data) {
-    games[0].addPlayerScore(data)
+    // gets the game joinings index in the games array and adds the user to that specfifc game 
+    gameInd = games.findIndex(obj => obj.pin == data['pin'])
+    game = games[gameInd]
+
+    game.addPlayerScore(data['uname'])
   })
 
   // sends whole quiz object down to client upon request
-  socket.on('cGetQuiz', function(data, callback) {
-    callback(games[0])
+  socket.on('cGetQuiz', function(gamePin, callback) {
+    var gameInd = games.findIndex(obj => obj.pin == gamePin)
+    callback(games[gameInd])
+  })
+
+  // when client hosts a quiz
+  socket.on('cCreateGame', function(data, callback) {
+  
+    //  gets all pins currently in use
+    var pins = games.map( x => x.pin)
+
+
+    valid = false
+    while (!valid) {
+      // generates random 4 digit number and turns into string
+      var pin = Math.floor(1000 + Math.random() * 9000);
+      var pin = pin.toString()
+
+      // checks that pin isnt already in use
+      if (!pins.includes(pin)) {
+        valid = true
+      }
+    }
+    console.log('valid pin ' + pin)
+
+    var quiz = new Game(pin)
+    quiz.loadQuestions('avengers')
+    console.log(quiz)
+    games.push(quiz)
+    console.log(games)
+    callback(pin)
   })
 
 });

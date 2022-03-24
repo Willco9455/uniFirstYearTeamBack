@@ -4,14 +4,13 @@ class Game {
     constructor(pin) {
         this.title = 'Game Title';
         this.pin = pin;
-        this.hostId = undefined
         this.players = []
-        this.questions = ['9 + 3', '3 + 4', '7 + 7', '4 x 4']
-        this.option1 = ['12', '5', '2', '8'] 
-        this.option2 = ['13', '7', '8', '12'] 
-        this.option3 = ['2', '3', '14', '16'] 
-        this.option4 = ['4', '2', '12', '4'] 
-        this.correct = [1, 2, 3, 3] 
+        this.questions = []
+        this.option1 = [] 
+        this.option2 = [] 
+        this.option3 = [] 
+        this.option4 = [] 
+        this.correct = [] 
         this.qnum = 0
     }
 
@@ -23,10 +22,6 @@ class Game {
         this.players = this.players.filter( obj => {
             return obj.uname != uname;
         });
-    }
-
-    setHost(uname) {
-        this.hostId = uname
     }
 
     clearPlayers() {
@@ -55,7 +50,18 @@ class Game {
     getPlayers() {
         return this.players
     }
+
+    loadQuestions(qName) {
+        this.title = qName
+        this.questions = quizes[qName]['questions']
+        this.option1 = quizes[qName]['option1']
+        this.option2 = quizes[qName]['option2']
+        this.option3 = quizes[qName]['option3']
+        this.option4 = quizes[qName]['option4']
+        this.correct = quizes[qName]['correct']
+    }
 }
+
 
 class User {
     constructor(uname) {
@@ -69,3 +75,42 @@ class User {
 }
 
 module.exports = Game
+
+
+
+
+// hard coded quizes that everybody can use 
+
+const quizes = {
+    'avengers' : {
+        'questions' : [
+            'How many Infinity Stones are there?',
+            'Where is Captain America from?'
+        ],
+
+        'option1' : [
+            'six',
+            'Yorkshire',
+        ], 
+
+        'option2' : [
+            'five',
+            'Queens',
+        ],
+
+        'option3' : [
+            'four',
+            'Brooklyn',
+        ],
+
+        'option4' : [
+            'seven',
+            'California'
+        ], 
+
+        'correct' : [
+            1, 
+            3
+        ]
+    }
+}
