@@ -19,9 +19,9 @@ const Game = require('./objects')
 const games = []
 
 // for testing purposes
-var game = games[0]
-game.addPlayer('jonn')
-game.addPlayerScore('jonn')
+// var game = games[0]
+// game.addPlayer('jonn')
+// game.addPlayerScore('jonn')
 
 console.log(PORT)
 
