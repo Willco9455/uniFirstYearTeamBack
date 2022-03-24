@@ -85,31 +85,43 @@ const quizes = {
     'avengers' : {
         'questions' : [
             'How many Infinity Stones are there?',
-            'Where is Captain America from?'
+            'Where is Captain America from?',
+            'What type of doctor is Doctor Strange?',
+            "Who was able to pick up Thor's hammer in Endgame?",
         ],
 
         'option1' : [
             'six',
             'Yorkshire',
+            'Wizard',
+            'Rocket',
         ], 
 
         'option2' : [
             'five',
             'Queens',
+            'Neurosurgeon',
+            'Hulk',
         ],
 
         'option3' : [
             'four',
             'Brooklyn',
+            'GP',
+            'Captain America',
         ],
 
         'option4' : [
             'seven',
-            'California'
+            'California',
+            'Trainee',
+            'John'
         ], 
 
         'correct' : [
             1, 
+            3,
+            2,
             3
         ]
     }

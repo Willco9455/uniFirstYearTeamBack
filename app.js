@@ -16,7 +16,7 @@ const Game = require('./objects')
 
 
 // aray that holds the game objects currently bieng played
-const games = [new Game('1234'), new Game('4321')]
+const games = []
 
 // for testing purposes
 var game = games[0]
