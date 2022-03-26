@@ -4,7 +4,7 @@ const PORT = (process.env.PORT || 5000);
 const httpServer = require("http").createServer();
 const io = require("socket.io")(httpServer, {
   cors: {
-    origin: 'http://kilburnkwizziz.williamjmoran.co.uk/',
+    origin: '*',
     methods: ["GET", "POST"]
   }
 });
