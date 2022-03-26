@@ -88,6 +88,7 @@ const quizes = {
             'Where is Captain America from?',
             'What type of doctor is Doctor Strange?',
             "Who was able to pick up Thor's hammer in Endgame?",
+            "Who is Tony Stark's father?",
         ],
 
         'option1' : [
@@ -95,6 +96,7 @@ const quizes = {
             'Yorkshire',
             'Wizard',
             'Rocket',
+            "Bob",
         ], 
 
         'option2' : [
@@ -102,6 +104,7 @@ const quizes = {
             'Queens',
             'Neurosurgeon',
             'Hulk',
+            "Steve",
         ],
 
         'option3' : [
@@ -109,20 +112,48 @@ const quizes = {
             'Brooklyn',
             'GP',
             'Captain America',
+            "Tony",
         ],
 
         'option4' : [
             'seven',
             'California',
             'Trainee',
-            'John'
+            'John',
+            'Howard'
         ], 
 
         'correct' : [
             1, 
             3,
             2,
-            3
+            3,
+            4
         ]
-    }
+    }, 
+    'starWars' : {
+        'questions' : [
+            'Who is luke skywalkers father?',
+        ],
+
+        'option1' : [
+            'Ben kenobi',
+        ], 
+
+        'option2' : [
+            'Darth Vader',
+        ],
+
+        'option3' : [
+            'four',
+        ],
+
+        'option4' : [
+            'seven',
+        ], 
+
+        'correct' : [
+            1, 
+        ]
+    },
 }
