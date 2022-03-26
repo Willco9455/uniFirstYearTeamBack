@@ -91,7 +91,7 @@ io.on("connection", (socket) => {
   })
 
   // when client hosts a quiz
-  socket.on('cCreateGame', function(data, callback) {
+  socket.on('cCreateGame', function(quizName, callback) {
   
     //  gets all pins currently in use
     var pins = games.map( x => x.pin)
@@ -111,7 +111,7 @@ io.on("connection", (socket) => {
     console.log('valid pin ' + pin)
 
     var quiz = new Game(pin)
-    quiz.loadQuestions('avengers')
+    quiz.loadQuestions(quizName)
     console.log(quiz)
     games.push(quiz)
     console.log(games)
