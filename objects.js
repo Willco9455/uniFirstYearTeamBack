@@ -2,7 +2,7 @@
 class Game {
 
     constructor(pin) {
-        this.title = 'Game Title';
+        this.title = '';
         this.pin = pin;
         this.players = []
         this.questions = []
@@ -134,26 +134,95 @@ const quizes = {
     'starWars' : {
         'questions' : [
             'Who is luke skywalkers father?',
+            'What did Luke Skywalker lose in his fight with Darth Vader?',
+            'What did Owen Lars tell Luke Skywalker about his father?',
+            "What is Chewbacca's weapon of choice?",
         ],
 
         'option1' : [
             'Ben kenobi',
+            'His left hand',
+            'He had been a Jedi Knight',
+            'Blaster rifle',
         ], 
 
         'option2' : [
             'Darth Vader',
+            'His left foot',
+            'He had been a Sith Lord',
+            'Lightsaber',
         ],
 
         'option3' : [
             'four',
+            'His right hand',
+            'He was a navigator on a spice freighter',
+            'Metal club'
         ],
 
         'option4' : [
             'seven',
+            'His left hand',
+            'He was a fighter pilot',
+            'Bowcaster'
         ], 
 
         'correct' : [
-            1, 
+            2, 
+            3,
+            3,
+            4
         ]
     },
-}
+    'science' : {
+        'questions' : [	
+            "Which of the following is a non metal that remains liquid at room temperature?",
+        ],
+
+        'option1' : [
+            'Phosphorous',
+        ], 
+
+        'option2' : [
+            'Bromine',
+        ],
+
+        'option3' : [
+            'Chlorine',
+        ],
+
+        'option4' : [
+            'Helium',
+        ], 
+
+        'correct' : [
+            2, 
+        ]
+    },
+    'generalKnowlage' : {
+        'questions' : [	
+          "What is the longest that an elephant has ever lived? ",
+        ],
+
+        'option1' : [
+            '17 years',
+        ], 
+
+        'option2' : [
+            '49 years',
+        ],
+
+        'option3' : [
+            '89 years',
+        ],
+
+        'option4' : [
+            '142 years',
+        ], 
+
+        'correct' : [
+            3, 
+        ]
+    },
+
+};

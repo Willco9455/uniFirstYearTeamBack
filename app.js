@@ -1,6 +1,7 @@
 // package imports 
 const PORT = (process.env.PORT || 5000);
 
+// sets up http server with socket.io
 const httpServer = require("http").createServer();
 const io = require("socket.io")(httpServer, {
   cors: {
@@ -15,14 +16,8 @@ httpServer.listen(PORT);
 // objects Imports
 const Game = require('./objects')
 
-
 // aray that holds the game objects currently bieng played
 const games = []
-
-// for testing purposes
-// var game = games[0]
-// game.addPlayer('jonn')
-// game.addPlayerScore('jonn')
 
 console.log(PORT)
 
@@ -59,8 +54,9 @@ io.on("connection", (socket) => {
 
   });
 
-
+  // responds to game start request send from the game hosts browser
   socket.on('cHostStartGame', function (gamePin) {
+    // emmits game start event to all clinents with in the game 
     io.to(gamePin).emit('sGameStarted')
     console.log('game start request recived by server')
   })
@@ -109,26 +105,26 @@ io.on("connection", (socket) => {
         valid = true
       }
     }
-    console.log('valid pin ' + pin)
 
+    // creates the new quiz and adds it to gamwe array
     var quiz = new Game(pin)
     quiz.loadQuestions(quizName)
-    console.log(quiz)
     games.push(quiz)
-    console.log(games)
+    
+    // send the pin back to the hosts browser
     callback(pin)
+
+  })
+
+  // server response when host clicks end game button on leaderboard page
+  socket.on('cEndQuiz', function (gamePin, callback) {
+    console.log('deleted quiz ' + gamePin)
+    io.to(gamePin).emit('sEndQuiz')
+    // gets the index of the pin passed into the funciton within the games array 
+    var gameInd = games.findIndex(obj => obj.pin == gamePin)
+    // removes the quiz from the array 
+    games.splice(gameInd, 1);
   })
 
 });
 
-
-
-// functions for testing 
-
-function clearLobby () {
-  games[0].qnum = 0
-  games[0].hostId = undefined
-  games[0].clearPlayers()
-  io.emit('sLobbyCleared')
-  console.log('lobby cleared')
-}
